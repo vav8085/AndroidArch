@@ -1,0 +1,12 @@
+Refactoring code:
+1.  If a method or an object is doing more than one thing then it needs refactoring.
+2.  To refactor an object we usually split it into smaller and more specific objects.
+3.  To refactor methods we use Extract Method refactoring. -- This is opposite of inline methods
+    The method should only do what is does, We can create submethods that say how to do it.
+4.  Create abstract methods if there are multiple implementations possible for different scenarios.
+    Like method to fetch an employee number from a Map of employees or from a database or from a list. All
+    the scenarios will have different implementation, creating an abstract method instead of if and else will
+    developers to extend these to future scenarios as well.
+5.  Reduced duplication, high expressiveness and early building of simple abstraction makes the code clean.
+
+*   Leave the code cleaner than you found it.
