@@ -1,1 +1,1 @@
-# CleanCode
+# Android Architecture projects
