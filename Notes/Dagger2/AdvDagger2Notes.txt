@@ -1,0 +1,91 @@
+Using Dagger2 In Android:
+
+* To use Dagger 2 in application we need to identify initial the dependencies our project has.
+* These dependencies can be using Picasso for image loading to using volley/retrofit for making service calls.
+* MyApplication.java - In the application class or any subclass of it we build the dagger component:
+  public ApplicationComponent createComponent() {
+      return DaggerApplicationComponent.builder()
+              .androidModule(new AndroidModule(this))
+              .build();
+              }
+  - We are creating a static method that returns us our application component. We will call this method in onCreate()
+    of our application and pass it "this", we do this because our AndroidModule has an external dependency of MyApplication.
+  - We also create a static method that will take the context and return us context.getApplicationContext() that we can use throughout.
+
+* BaseActivity.java - Next we create a BaseActivity where we create an abstract method that will be called by every child activity to call component.inject(this).
+  protected abstract void injectDependencies(MyApplication application, ApplicationComponent component);
+  - We call this method in our BaseActivity and send it application and component references. This way this method will be called
+  on onCreate of every Activity and taking its context and calling inject(this) on it.
+  injectDependencies(MyApplication.get(this), MyApplication.getComponent());
+
+Note - We can call inject(this) in separate activities as well but this way we will need component object in all the activities.
+
+* AndroidModule.java - This is our top level module class that will need a context object in constructor and will provide
+  us our application context:
+
+  private MyApplication application;
+
+  public AndroidModule(MyApplication application) {
+      this.application = application;
+  }
+
+  @Provides
+  @Singleton
+  Context provideContext() {
+      return application.getApplicationContext();
+  }
+
+  @Provides
+  @Singleton
+  Resources provideResources() {
+      return application.getResources();
+  }
+
+* ApplicationComponent.java - This is the interface where we will be declaring all the inject(activity) methods and Subcomponents.
+  void inject(SplashActivity activity);
+
+  void inject(MainActivity activity);
+
+  void inject(CharacterActivity characterActivity);
+
+  SearchSubComponent plus(SearchModule module);
+
+  CacheSubComponent plus(CacheModule module);
+
+  -These methods can be named anything like injectMainActivity(), injectSplashActivity() etc. We are giving dagger the instances of these activities
+   so dagger can inject objects into them.
+  -We can also define methods here to get a certain object of a class whose constructor is annotated with @Inject, the constructor parameters should be
+   objects created by dagger module specified in this component with @Component{Modules=
+
+* AnyActivity.java - In any activity just extend BaseActivity.java and implement the injectDependencies() method calling inject(this) to let dagger
+  know that this is the place where we will be using Dagger.
+  - To use any dagger provided dependency just declare any variable in this activity with @Inject annotation:
+    @Inject
+    DatabaseHelper databaseHelper;
+  - No need to create object for databaseHelper now because dagger will take care of it.
+  - If dagger component that called component.inject(this) has any dependency with the same type(DatabaseHelper) as the variable declared with @Inject
+    dagger will assign the variable with dependency.
+
+* Dependency classes - We also have various classes that themselves act as dependencies like various Presenters and Interactors. Because we have control
+  over these objects we declare their constructors with @Inject annotation. This way dagger is able to create their objects.
+
+* External Libraries - We might also have to work with external libraries that do not have constructors with @Inject annotation. For these libraries
+  We have to create their objects in various dagger modules and return them using provider methods.
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+References:
+https://github.com/mirhoseini/marvel
+https://github.com/codepath/android_guides/wiki/Dependency-Injection-with-Dagger-2

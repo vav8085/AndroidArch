@@ -1,0 +1,42 @@
+1.  For using Retrofit you have to create an interface for every service.
+
+2.  The interface declares a method annotated with @GET, @POST which is implemented
+    by auto generated class created by retrofit for you.
+
+3.  The  @GET annotation also takes request endpoint as parameter:
+    @GET("users/vav8085/repos")
+    @GET("users/list?sort=desc") // with query params
+
+4.  The method returns an object of type Call which takes a param as List of response pojo type.
+    Call<List<Repo>> repos = service.listRepos("WarPlan");
+
+5.  You can manipulate the URL dynamically when you interface method gets called.
+
+    - Adding Url and path params:
+    @GET("group/{id}/users")
+    Call<List<User>> groupList(@Path("id") int groupId, @Query("sort") String sort);
+
+    - For complex query you can use a map:
+    @GET("group/{id}/users")
+    Call<List<User>> groupList(@Path("id") int groupId, @QueryMap Map<String, String> options);
+
+6.  You can add request body in the same interface method as an object. Retrofit convertor will
+    automatically convert the request and response and map it to pojo created for appropriate parsing library.
+    (request and response pojos of various parsing libraries use different annotations, to create a pojo from
+    a response you can use tools like http://www.jsonschema2pojo.org/)
+
+    @POST("users/new")
+    Call<User> createUser(@Body User user);
+
+7.  You can also add custom headers using:
+
+    @Headers({
+      "Accept: application/vnd.github.v3.full+json",
+      "User-Agent: Retrofit-Sample-App"
+      })
+      @GET("users/{username}")
+      Call<User> getUser(@Path("username") String username);
+
+    - You can also set headers dynamically using:
+    @GET("user")
+    Call<User> getUser(@Header("Authorization") String authorization)

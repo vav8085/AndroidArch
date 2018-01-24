@@ -1,0 +1,16 @@
+1.  Retrofit is an Android networking library from square.
+
+2.  The library can make rest service calls in Android and automatically map the
+    response to pojos.
+
+3.  You just need to compile the library in build.gradle using :
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+
+4.  You can import convertors : com.squareup.retrofit2:converter-gson
+    - By default retrofit can only deserialize http bodies
+    into OkHttp. With convertors you can support other type of serialization libraries.
+
+    Retrofit retrofit = new Retrofit.Builder()
+    .baseUrl("https://api.github.com")
+    .addConverterFactory(GsonConverterFactory.create())
+    .build();

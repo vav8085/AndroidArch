@@ -1,8 +1,0 @@
-Meaningful Names:
-
-1.  Use intention revealing names. This means that the names should explain why it exist, what it does and how its used.
-    It should not need a comment after it.
-2.  Name the constants instead of using values like 0, 1 etc.
-
-
-

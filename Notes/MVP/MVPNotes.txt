@@ -1,0 +1,64 @@
+SOLID:
+S.  Single responsibility principle:
+    There should not be more than one reason for a class to change. Each class should have one and
+    only one responsibility to avoid it changing because other functionality changes. Example: Databases
+    class should only perform and result database results, Formatting class should only format the values
+    without doing any database or other operations. Network call class should do only network call and return
+    response. Parser should only parse data and update dao.
+
+O.  Open closed principle:
+    Class and functions should be open for extension but closed for modification.
+    The classes once written should not be modified. Most testcases depend directly on class methods and
+    if class modifies then test and other dependent code may also need modification.
+    Switches and conditional statements make code dependent on values coming from other classes, if a parameter
+    in condition needs to be added or modified then we have to change it in conditional statements as well.
+    We can use strategy pattern to replace conditional statements. We can use runtime polymorphism.
+
+L.  Liskov substitution:
+    If a program is using a base class then the reference to the base class can be replaced by derived class,
+    without affecting the functionality of the program module.
+    This happens when real objects are actually different from the way we think of them. An example
+    could be Square and Rectangle. A Square can be a Rectangle but if we extend a Rectangle to
+    create a Square then we have to disable some properties of Rectangle that Square does not have. This
+    breaks Liscov rule.
+    A few reasons for breaking it could be - Subtype does not allow some operations that base class has.(behaviours)
+    , Subtype has different pre and post conditions than base class (data members).
+    We should always think before subclassing a Class.
+
+I.  Interface segregation:
+    No Client should be forced to depend on methods it does not use. If we have a big interface performing various methods
+    and it got many inheritance. If this interface changes it will affect all the inherited classes.
+    We should split out the large interface and create some small interface that takes care of certain type
+    of clients.
+
+D.  Dependency Inversion:
+    Abstraction should not depend on details, details should depend on abstraction.
+    What Dependency Inversion Principle fundamentally reverses the way in which dependencies are managed in software systems.
+    Rather than having the higher-level module directly depending on lower-level modules to carry out their responsibilities,
+    this principle instead makes the higher-level module rely on an ‘abstraction’ or an ‘abstract interface’ representing lower-level
+    module. The actual implementation of lower level module can then vary. **As long as the lower-level module’s implementation is
+    accessible to the higher-level module via the abstract interface, the higher-level module is able to invoke it.**
+    The lower level modules should perform their functions in the methods provided my higer level modules to do higher level work.
+
+References:
+    https://www.youtube.com/watch?v=Ia340JN3ZS4 by Jakub Dziworski
+    http://www.javabrahman.com/programming-principles/dependency-inversion-principle-example-java/
+
+MVP:
+    MVP stands for model, view and presenter pattern. Model is the data to be presented or worked upon. The presenter acts
+    upon the model and the view. Presenter takes the data from the model(Database or services) and delivers it to views.
+    *   MVP layers should allow us to test them separately.
+    *   There can be a separate model for views, databases and services that are updated from respective layers.
+    *   One layer in MVp only depends on one other layer. View depends on presenter, Model depends on presenter etc.
+    *   MVP Views are represented in 2 types- Passive view and Supervising controller.
+        -Passive view approach is more testable.
+        -Supervising controller has much simpler code.
+
+
+https://android.jlelse.eu/avenging-android-mvp-23461aebe9b5
+
+
+
+
+
+

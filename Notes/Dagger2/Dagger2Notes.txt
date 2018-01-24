@@ -1,0 +1,100 @@
+Dependency Injection:
+
+*	An object can be dependent on other objects to perform its method.
+*	These other objects are called dependencies.
+*	We can initialize these dependencies in our classes constructor but
+	for larger applications we may have many objects. Also if we would
+	like to replace some of these objects with other objects we have to
+	not only change them but also this class.
+*	This also creates problems while testing, while testing our current
+	object we might end up testing the other objects as well.
+*	And each dependency can have multiple other dependencies.
+*	If instead of creating dependencies we can provide dependencies to 
+	our class through constructor we can solve above problems.
+*	Providing dependencies to our class is called dependency injection.
+	public class WeatherReporter {
+
+    private final WeatherService weatherService;
+
+    private final LocationManager locationManager;
+	
+	//Dependencies are injected here through constructor
+    public WeatherReporter(WeatherService weatherService,
+                           LocationManager locationManager) {
+        this.weatherService = weatherService;
+        this.locationManager = locationManager;
+    }
+
+    public void report() {
+        // locationManager.getCurrentLocation()
+        // weatherService.getTemperature(location)
+        // print(temperature)
+    }
+	}
+*	Application class
+	public class Application {
+    public static void main(String args[]) {
+        WeatherService ws = new WeatherService();
+        LocationManager lm = new LocationManager();
+        WeatherReporter reporter = new WeatherReporter(ws, lm);
+        reporter.report();
+    }
+	}
+Dependency Graph:
+
+*	A dependency graph shows all the dependencies for current object.
+*	In Android we can instanciate dependencies in onCreate.
+*	For any application the dependencies are instantiated at their entry point.
+*	For multiple dependencies the graph can look more bloated.
+	
+	public class Application {
+    public static void main(String args[]) {
+        Logger logger = new Logger();
+        WebSocket socket = new WebSocket();
+        GPSProvider gps = new GPSProvider();
+        WeatherService ws = new WeatherService(logger, socket);
+        LocationManager lm = new LocationManager(logger, gps);
+        WeatherReporter reporter = new WeatherReporter(logger, ws, lm);
+        reporter.report();
+    }
+	}
+Dagger2:
+*	We usually have to perform 3 different tasks to use DI using Dagger 2.
+*	Firstly we have a dagger module:
+	-	Dagger module is a simple class annotated with @Module.
+	-	This class has all the methods that create(Instantiate) and return dependencies. e.g. Networkmodule will have various 			Providers for Ok Http, retrofit and any other network related dependency.
+	-	All the methods in a module class are annotated with @Provides annotation.
+	-	All the provider methods take parameters as reference to values returned by other provider methods to create a dependency
+		tree.
+	-	There could be some dependencies that cannot be instantiated in these dagger modules. e.g. context. These dependencies are
+		called external dependencies.
+	-	When we create a module for an external dependency, we do that by creating a constructor for that dependency.
+	-	In case of external dependency the provider only returns this dependency.
+	
+*	Second thing is the Component interface:
+	-	The component interface is any Interface that contains the final built objects we need to return to user.
+	-	These will obviously be coming from some modules, we declare getters in component that return these final objects.
+	-	The component interface is itself annotated with 
+		@Component(
+			modules = {
+				module.class,
+				}
+			)
+	-	This is the place where we tell component what modules it need to use to create and return the final objects.
+	-Note	If we have interdependent modules then instead of declaring them in component we can add them to the module that needs
+		it by using @Module(OtherModule.class)
+	-	Dagger creates a class that implements this Interface and called with name Dagger and interface name 
+		e.g. DaggerMyComponent.
+	-	Dagger creates a class from this interface and we can see all dependency graph there, it can be found in Build folder in
+		Android.
+	
+*	Third thing is just to create an instance of our component:
+	-	We do it anywhere in our code using Component ourComponent = DaggerMyApplicationComponent.builder().contextModule(new 			ContextModule(this)).gitHubServiceModule(new GithubServiceModule())....build().
+	-	In much easier way, we can just create an object for our module that needs constructor, dagger will automatically create
+		other modules for us. so above line will become like DaggerMyApplicationComponent.builder().contextModule(new 				ContextModule(this)).build();
+	-	Finally we can get instances of our Objects from this component using the methods we defined in there.
+	
+
+
+References: https://medium.com/@isoron/a-friendly-introduction-to-dagger-2-part-1-dbdf2f3fb17b
+By TwistedEquations : ttps://www.youtube.com/watch?v=gg1zxoVStBM&list=PLuR1PJnGR-Ih-HXnGSpnqjdhdvqcwhfFU&index=2#t=14.524721 

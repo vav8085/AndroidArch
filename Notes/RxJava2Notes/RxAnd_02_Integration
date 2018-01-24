@@ -1,0 +1,5 @@
+Integrating RxJava2 in Android app:
+
+1.  We need to add   compile 'io.reactivex.rxjava2:rxjava:2.0.5'
+    to our module level build.gradle.
+2.  Once this is done we can add all the imports in our main java file.

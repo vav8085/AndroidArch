@@ -1,0 +1,54 @@
+Building Blocks of RxJava:
+
+1.  The most basic building blocks of RxJava application is Observer and Observable.
+2.  Observable is just like Iterable which iterates through data and emits it.
+3.  Observable does not emit any data until an Observer subscribes to it.
+4.  Every time an observable emits some data it notifies an Observer using onNext() method.
+5.  onComplete() is called is operation is successful.
+6.  onError() is called in case of exception.
+7.  Example:
+    Observable<Integer> observable = Observable.create(new ObservableOnSubscribe<Integer>() {
+      @Override
+
+      public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+          //Use onNext to emit each item in the stream//
+          e.onNext(1);
+          e.onNext(2);
+          e.onNext(3);
+          e.onNext(4);
+
+          //Once the Observable has emitted all items in the sequence, call onComplete//
+          e.onComplete();
+      }
+     }
+    );
+8.  After creating an Observable we call Observable.subscribe(observer) to assign an observer
+    to an observable. Its like calling Button.setOnClickListener(new OnClickListener({});
+    Where button is Observable and clickListener is Observer and overrides all abstract methods of Observer class.
+
+9.  We have to create an Observer like below:
+    Observer<Integer> observer = new Observer<Integer>() {
+      @Override
+      public void onSubscribe(Disposable d) {
+          Log.e(TAG, "onSubscribe: ");
+      }
+
+      @Override
+      public void onNext(Integer value) {
+          Log.e(TAG, "onNext: " + value);
+      }
+
+      @Override
+      public void onError(Throwable e) {
+          Log.e(TAG, "onError: ");
+      }
+
+      @Override
+      public void onComplete() {
+          Log.e(TAG, "onComplete: All Done!");
+      }
+    };
+10. The amazing thing is that we can create Observable from anything like:
+    A.  We can use Observable.just("Hello World") to make any object an Observable.
+    B.  We can use Observable.from() to make any collections object an Observable.
+    C.  Similarly we can use Observable.range(), Observable.interval(), Observable.empty().

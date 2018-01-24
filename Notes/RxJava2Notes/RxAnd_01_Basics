@@ -1,0 +1,43 @@
+RxJava 2.0 Basics:
+
+1.  RxJava uses reactive programming style.
+2.  Reactive programming provides a clean way of processing data.
+3.  In RxJava treats everything as data. Its not required to be primitive data types.
+4.  Data can be:
+    A Value
+    An error
+    A completion signal.
+5.  Data is ***emitted by streams*** and consumed by ***reactive objects***.
+6.  Rxjava operations: http://reactivex.io/documentation/operators.html
+7.  Rxjava extends the observer design pattern.
+8.  **So the ***emitters are Observable objects***.
+9.  **And we have ***Observer objects(reactive objects)*** that subscribe to these Observable objects.
+
+Basic design:
+1.  Creating an Observable.
+2.  Giving that Observable some data to emit.
+3.  Creating an Observer.
+4.  Assigning the Observer to an Observable.
+5.  Giving the Observer tasks to perform whenever it receives an emission from its assigned Observable.
+
+Benefits:
+1.  Clean and maintainable code.
+2.  Easy multithreading with the help of ***schedulers and operators***. It makes it easy to specify the
+    thread where work should be performed and where result should be posted.
+3.  Rxjava provides various schedulers by default e.g. Schedulars.newThread() that starts a new thread.
+4.  We know that an observer subscribes to an observable. To make an observer subscribe on an observable in a
+    new thread we can do observable.subscribeOn(Schedulars.newThread()).
+5.  We can also send data to another thread by using .observeOn(AndroidSchedulars.mainThread()) //This is for main thread, there
+    can be any thread.
+6.  So it becomes:
+    .subscribeOn(Schedulers.newThread())
+    .observeOn(AndroidSchedulers.mainThread())
+7.  This way we can avoid using Handlers on Android for thread communication.
+8.  Observers are unaware of the way data is created.
+9.  You can combine data from multiple streams and even modify or filter it.
+
+
+
+
+References:
+https://code.tutsplus.com/tutorials/getting-started-with-rxjava-20-for-android--cms-28345
