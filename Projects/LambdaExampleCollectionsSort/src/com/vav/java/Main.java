@@ -46,7 +46,27 @@ public class Main {
         for(Agent agent : secretAgents){
             System.out.println(agent.getName() + " : " + agent.getId());
         }
+
+       // Upper Concat without lambdas, we are doing the same thing here as done above
+       // We just created our own interface and passed it in the method.
+//        System.out.println(getUpperConcat(new UpperConcat() {
+//            @Override
+//            public String UpperConcat(String s1, String s2) {
+//                return s1.toUpperCase()+" "+s2.toUpperCase();
+//            }
+//        },lara.getName(),james.getName()));
+
+        //Converting the above to lambda function
+
+        UpperConcat uc = (s1,s2)-> s1.toUpperCase() + " " + s2.toUpperCase();
+        System.out.println(getUpperConcat(uc,lara.getName(),james.getName()));
+
     }
+    public static String getUpperConcat(UpperConcat uc, String s1, String s2){
+        return uc.UpperConcat(s1,s2);
+    }
+
+
 }
 
 /**
@@ -77,4 +97,8 @@ class Agent {
     public void setId(int id) {
         this.id = id;
     }
+}
+
+interface UpperConcat{
+    public String UpperConcat(String s1, String s2);
 }
