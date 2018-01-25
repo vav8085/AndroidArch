@@ -1,0 +1,28 @@
+Lambdas:
+
+1.  Lambda functions are a kind of replacement for creating an anonymous object.
+2.  These anonymous objects are usually for the a one function interface.
+3.  An example could be creating a runnable
+    new Thread(new Runnable(){
+      @Override
+      public void run(){
+        System.out.println("Single method interface Runnable has Run method!");
+      }
+    });
+4.  These kind of interfaces make the code very complicated. We are using the
+    anonymous object only once here and we have to write a code that keeps
+    getting more complicated.
+5.  With lambda expressions we can solve the problem in one line.
+    new Thread(()->System.out.println("Lambda expression")).start();
+6.  With this java knows at compile time that Thread() constructor takes a Runnable
+    argument and Runnable interface has only one empty method defined. The lambda expressions
+    is executed as a part of this method.
+7.  Another example can be of Collections.sort(). We know that the Comparator has an empty method
+    compare that takes two arguments compare(arg1, arg2); . Our lambda expression will look something
+    like below.
+    Collections.sort(secretAgents,(Agent agent1, Agent agent2)-> agent1.getName().compareTo(agent2.getName()));
+
+8.  Another way of writing is leaving parameter types out because compiler understands it from first param.
+    Collections.sort(secretAgents,(agent1, agent2)-> agent1.getName().compareTo(agent2.getName()));
+
+  

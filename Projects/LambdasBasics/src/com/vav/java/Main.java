@@ -22,6 +22,7 @@ public class Main {
     public static void lambdasThreadExample(){
         new Thread(()->System.out.println("Printing from runnable!")).start();
     }
+
     public static void lambdasThreadMultiline(){
         new Thread(()->{
             System.out.println("Printing from runnable!");
@@ -30,11 +31,7 @@ public class Main {
         }).start();
     }
 }
-
-
-
-
-
+//Usual way by implementing runnable in a class.
 class CodeToRun implements Runnable{
 
     @Override
