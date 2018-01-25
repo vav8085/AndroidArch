@@ -1,0 +1,11 @@
+Lifecycle Aware Components:
+
+1.  Lifecycle aware components do things when there is change in lifecycle of another
+    component(This could be an Activity/Fragment).
+2.  Usually when we want to perform an action on a component during change in Activity/Fragments
+    lifecycle we write the code in onCreate() onResume() etc. This makes the activities bulky handles
+    more error prone.
+3.  android.arch.Lifecycle package provides classes and interfaces that let you build Lifecycle
+    aware components.
+4.  Most of the components on Lifecycle package have lifecycles attached to them. Lifecycles aware
+    managed by android.
