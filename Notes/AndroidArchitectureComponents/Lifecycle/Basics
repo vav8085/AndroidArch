@@ -5,7 +5,11 @@ Lifecycle Aware Components:
 2.  Usually when we want to perform an action on a component during change in Activity/Fragments
     lifecycle we write the code in onCreate() onResume() etc. This makes the activities bulky handles
     more error prone.
-3.  android.arch.Lifecycle package provides classes and interfaces that let you build Lifecycle
+3.  Sometimes we create a separate class for components that need to be lifecycle aware and call
+    its methods using an object in activity's or fragment's lifecycle methods. The problem here is
+    sometimes these method calls take longer than activity lifecycle method call lasts.
+    **Solution:
+4.  android.arch.Lifecycle package provides classes and interfaces that let you build Lifecycle
     aware components.
-4.  Most of the components on Lifecycle package have lifecycles attached to them. Lifecycles aware
+5.  Most of the components on Lifecycle package have lifecycles attached to them. Lifecycles aware
     managed by android.
