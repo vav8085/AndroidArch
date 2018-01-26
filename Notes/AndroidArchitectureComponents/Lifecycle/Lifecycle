@@ -58,3 +58,86 @@ Understanding the location listener example on developer.android.com website.
     can end up crashing our app.
 
 Lifecycle:
+
+1.  Lifecycle class holds the information about the lifecycle STATE of the component
+    /observable class(Activity/Fragment).
+2.  Allows observers to know this state.
+3.  Lifecycle is an abstract class with 2 enum defined as nested classes.
+    Event - Lifecycle events that map to callback events from activities and fragments.
+      onStart, onCreate, onStop, onPause....etc.
+    State - The current state of the component.
+
+4.  To get the lifecycle of a LifecycleOwner we have to call mylifecycleOwner.getLifecycle()
+    this will return an instance of Lifecycle of this this owner.
+
+    myLifecycleOwner.getLifecycle().addObserver(new MyObserver());
+
+5.  We can then call addObserver on this Lifecycle object to add the current class as its Observer.
+6.  Notice that the addObserver method takes a LifecycleObserver as its argument. This means
+    our observer class has to implement LifecycleObserver interface.
+
+7.  The only thing left for us to do is to annotate our lifecycle observer methods
+    with annotation OnLifecycleEvent to make them lifecycle aware.
+
+    public class MyObserver implements LifecycleObserver {
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void connectListener() {
+        ...
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    public void disconnectListener() {
+        ...
+    }
+    }
+
+8.  Notice that the LifecycleObserver interface has no methods defined.
+
+MyLocationListener example with lifecycle observer implemented:
+
+    class MyLocationListener implements LifecycleObserver {
+        private boolean enabled = false;
+        public MyLocationListener(Context context, Lifecycle lifecycle, Callback callback) {
+           ...
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_START)
+        void start() {
+            if (enabled) {
+               // connect
+            }
+        }
+
+        public void enable() {
+            enabled = true;
+            if (lifecycle.getCurrentState().isAtLeast(STARTED)) {
+                // connect if not connected
+            }
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+        void stop() {
+            // disconnect if connected
+        }
+    }
+
+    //activity
+
+    class MyActivity extends AppCompatActivity {
+        private MyLocationListener myLocationListener;
+
+        public void onCreate(...) {
+            myLocationListener = new MyLocationListener(this, getLifecycle(), location -> {
+                // update UI
+            });
+            Util.checkUserStatus(result -> {
+                if (result) {
+                    myLocationListener.enable();
+                }
+            });
+      }
+    }
+
+1.  Not our LifecycleOwner has our LifecycleObserver instance created and our LifecycleObserver
+    has Lifecycle instance to query lifecycle events.
+2.  AppCompatActivity already extends Lifecycle.
