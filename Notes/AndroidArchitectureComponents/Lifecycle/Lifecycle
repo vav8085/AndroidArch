@@ -1,0 +1,60 @@
+A normal listener use case:
+
+Understanding the location listener example on developer.android.com website.
+
+1.  Usually we create listeners in two ways:
+    A.  Creating an interface and make observer/listener/subscriber class extend it.
+        give the observable class an instance on this class to call methods on it.
+    B.  Create a observer/listener/subscriber class and instantiate it in observable
+        . Then call the methods of subscriber in observable class to trigger events.
+
+2.  Same thing is happening in below code, we are creating an observer class MyLocationListener
+    and instantiating in our activity's onCreate to listen to activity lifecycle events.
+    We are sending events in activity's onStart() and onStop().
+      class MyLocationListener {
+      public MyLocationListener(Context context, Callback callback) {
+              // ...
+          }
+
+          void start() {
+              // connect to system location service
+          }
+
+          void stop() {
+              // disconnect from system location service
+          }
+      }
+
+      class MyActivity extends AppCompatActivity {
+          private MyLocationListener myLocationListener;
+
+          @Override
+          public void onCreate(...) {
+              myLocationListener = new MyLocationListener(this, (location) -> {
+                  // update UI
+              });
+          }
+
+          @Override
+          public void onStart() {
+              super.onStart();
+              myLocationListener.start();
+              // manage other components that need to respond
+              // to the activity lifecycle
+          }
+
+          @Override
+          public void onStop() {
+              super.onStop();
+              myLocationListener.stop();
+              // manage other components that need to respond
+              // to the activity lifecycle
+          }
+      }
+3.  Although its cleaner than writing logic within the activity. The issue here
+    is that we have to add many listeners on activity lifecycle methods.
+    Another bigger issue is that if we are doing too much work in our observer
+    class then it can extend even after the activity has stopped/destroyed. this
+    can end up crashing our app.
+
+Lifecycle:
