@@ -5,8 +5,8 @@ Understanding the location listener example on developer.android.com website.
 1.  Usually we create listeners in two ways:
     A.  Creating an interface and make observer/listener/subscriber class extend it.
         give the observable class an instance on this class to call methods on it.
-    B.  Create a observer/listener/subscriber class and instantiate it in observable
-        . Then call the methods of subscriber in observable class to trigger events.
+    B.  Create(Register) a observer/listener/subscriber class and instantiate it in observable
+        . Then call the overridden methods of subscriber in observable class to trigger events.
 
 2.  Same thing is happening in below code, we are creating an observer class MyLocationListener
     and instantiating in our activity's onCreate to listen to activity lifecycle events.

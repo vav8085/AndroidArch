@@ -1,0 +1,6 @@
+Basics:
+
+1.  Livedata is an observable data holder class that means
+    A.  It holds some data
+    B.  It holds an object of an observer to inform it.
+2.  Livedata is lifecycle aware.
