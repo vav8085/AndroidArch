@@ -1,0 +1,15 @@
+
+Working with Livedata:
+
+1.  In your ViewModel create an instance of Livedata.
+2.  Create an Observer Object that defines the onChanged() method.
+3.  The Observer object is created in Activity/ Fragment. (We can extend this interface in another class also
+    and pass it activity reference. instead of creating anonymous inside activity).
+    (We can also create a lambda).
+4.  We receive a callback on onChanged() method every time our data is changed.
+5.  We will register/attach the observer object to Livedata in the Livedata class observe() method.
+6.  This method also takes a LifecycleOwner object.
+7.  We usually register the observer in Activity/Fragment.
+
+8.  Whenever the values in LiveData object is updated all registered observers
+    are notified as long as the activity/fragment is in resumed/started state.

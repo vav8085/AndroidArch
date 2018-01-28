@@ -4,3 +4,5 @@ Basics:
     A.  It holds some data
     B.  It holds an object of an observer to inform it.
 2.  Livedata is lifecycle aware.
+3.  Because its lifecycle aware it only updates the observers that are
+    in lifecycles started or resumed state.

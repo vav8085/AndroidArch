@@ -7,6 +7,10 @@ Understanding the location listener example on developer.android.com website.
         give the observable class an instance on this class to call methods on it.
     B.  Create(Register) a observer/listener/subscriber class and instantiate it in observable
         . Then call the overridden methods of subscriber in observable class to trigger events.
+    C.  Creating an interface and instantiating it in an anonymous class with single method.
+        Passing this anonymous object in register method of observable.
+        just like button.setOnclickListener(new OnclickListener(){@Override onClick(View v){}}));
+        button is observable and this method is defined in an anonymous observer class.
 
 2.  Same thing is happening in below code, we are creating an observer class MyLocationListener
     and instantiating in our activity's onCreate to listen to activity lifecycle events.
