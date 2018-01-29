@@ -1,0 +1,33 @@
+Implementation:
+
+1.  Extend the ViewModel class:
+
+    public class MyViewModel extends ViewModel {
+        private MutableLiveData<List<User>> users;
+        public LiveData<List<User>> getUsers() {
+            if (users == null) {
+                users = new MutableLiveData<List<Users>>();
+                loadUsers();
+            }
+            return users;
+        }
+
+        private void loadUsers() {
+            // Do an asynchronous operation to fetch users.
+        }
+    }
+
+Accessing ViewModel:
+
+1.  You can get ViewModel in an activity or fragment using:
+
+    MyViewModel model = ViewModelProviders.of(this).get(MyViewModel.class);
+
+2.  If the activity gets recreated it will receive the same ViewModel. When the LifeCycleOwner
+    is finished the framework calls onCleared() of the ViewModel object.
+
+****  A ViewModel should never reference a View, Lifecycle or any class that may hold Activity context.
+
+****  ViewModel may contain a LiveData object but it should never observe the data in this object.
+
+****  ViewModel can get the system service etc using Application context. In this case it should extend AndroidViewModel class.

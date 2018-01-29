@@ -1,0 +1,12 @@
+Update LiveData:
+
+1.  LiveData provides two methods setValue(T) and postValue(T) to set values of
+    LiveData objects.
+
+    mButton.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String anotherName = "John Doe";
+            mModel.getCurrentName().setValue(anotherName);
+        }
+    });

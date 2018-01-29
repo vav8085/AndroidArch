@@ -1,6 +1,6 @@
 ViewModel
 
-1.  Viewmodel prepares data for Activity and Fragments.
+1.  Viewmodel prepares data for Activity and Fragments. Its a UI controller.
 2.  Viewmodel also handles communication of activity and Fragments with rest of application.
 3.  Viewmodels life is as long as the the scope(Activity/Fragment) its attached to.
 4.  Viewmodel does not get destroyed as long as activity is not finished. If an activity

@@ -1,0 +1,34 @@
+Observing Livedata:
+
+1.  We usually listen to LiveData in onCreate() method of activity.
+2.  To Listen to LiveData we get the ViewModel.
+3.  then we call mModel.getCurrentName().observe(this, nameObserver);
+4.  getCurrentName can be anything that is our LiveData.
+5.  Notice that the observe() method takes a LifeCycleOwner and an observer.
+
+    public class NameActivity extends AppCompatActivity {
+
+    private NameViewModel mModel;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Other code to setup the activity...
+
+        // Get the ViewModel.
+        mModel = ViewModelProviders.of(this).get(NameViewModel.class);
+
+        // Create the observer which updates the UI.
+        final Observer<String> nameObserver = new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable final String newName) {
+                // Update the UI, in this case, a TextView.
+                mNameTextView.setText(newName);
+            }
+        };
+
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
+        mModel.getCurrentName().observe(this, nameObserver);
+    }
+    }
