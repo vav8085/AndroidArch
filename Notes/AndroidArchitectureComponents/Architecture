@@ -57,12 +57,27 @@ Architecture:
         F.  Except the constructor with all fields all other constructors are annotated
             with @Ignore so Room will ignore it at compile time.
 
-    WebService:
-        A.  This can be implemented through Retrofit/Volley and can provide a Singleton
-            that can be used by repository to make service calls.
+WebService:
+    A.  This can be implemented through Retrofit/Volley and can provide a Singleton
+        that can be used by repository to make service calls.
 
-    Dependency Injection:
-        A.  We can use DI to inject lower architecture components to upper levels
-            using Dagger2.
-        B.  We can also create a Facade to instantiate and initialize these
-            dependencies(Not recommended).
+Dependency Injection:
+    A.  We can use DI to inject lower architecture components to upper levels
+        using Dagger2.
+    B.  We can also create a Facade to instantiate and initialize these
+        dependencies(Not recommended).
+
+DataBinding:
+    A.  We do not want to write all boilerplate code for setting onClickListeners
+        findViewByIds etc.
+    B.  We can use Android DataBinding Library or Butterknife to do these operations.
+    C.  This will further reduce the total lines of code from Activities and Fragments.
+
+Utils:
+    A.  We can write basic business logic in a class with static methods called Utils.
+    B.  This will have login to convert data in different types. Sorting and various
+        UI logics.
+
+LifecycleAwareComponents:
+    A.  For utility classes like NetworkUtils that depend on Android Lifecycle we can
+        create LifeCycleObservers and LifecycleOwners and write our logic here.
