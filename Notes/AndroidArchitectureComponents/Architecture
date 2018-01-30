@@ -1,4 +1,68 @@
 Architecture:
 
-1.  Googles architecture is MVVM with a repository.
-2.  
+1.  Important things to consider:
+    A.  Separation of concern.
+    B.  Only code for UI and OS interaction should be in Activity/ Fragments.
+    C.  Drive UI from a model.
+
+2.  How does the basic architecture works?
+
+    Activity/Fragment:
+    A.  Your Activity/Fragment has a ViewModel reference that can be used to
+        call various getter methods on the ViewModel to get LiveData.
+    B.  Then you cal call liveDataObject.observe(this, observer/anonymous);
+    B.  It also has a reference/Anonymous-object of the Observer interface that
+        has onChanged(T t) method that provides data. You can update UI here.
+
+    ViewModel:
+    A.  Your ViewModel has a LiveData instance. This is received in its
+        constructor from Repository.
+    B.  This also has a Repository instance. The instance is injected in ViewModel
+        constructor/instance variable using a dependency injection framework.
+    C.  You call Repository's getData() method after creating the ViewModel in
+        its init() method that you call in Activity/Fragment.
+    D.  ViewModel provides getter for LiveData<T> for Activity/Fragment.
+
+    Repository:
+    A.  Singleton class.
+    B.  Has an instance of Web-service interface/Class that is used to make service
+        calls and save data in DAO/ cache it locally(For this we have to create a
+        LiveData instance in Repository that it can return).
+    C.  Has an instance of DAO that can be called to sync web-service data to the
+        local database.
+    D.  This is the place where we call web-services to get data.
+    E.  Has a getter for the LiveData we get from web-service or DAO.
+    F.  Repository does not have any reference of ViewModel.
+    E.  DAO, WebService and other dependencies are injected to repository.
+
+    Room:
+        DAO:
+        A.  DAO are interfaces annotated with @Dao.
+        B.  They have various methods annotated with @Insert, @Query...that save
+            and return data to/from database.
+
+        Database:
+        A.  An abstract class annotated with @Database and extend RoomDatabase class.
+        B.  This class generally has @TypeConvertors, entities specified.
+        C.  It contains an abstract method to get DAO.
+        D.  It provides a getInstance() method.
+        E.  Its implementation is done by system.
+
+        Entity class:
+        A.  This defines our sql schema.
+        B.  Annotated with @Entity.
+        C.  We can create create private fields for our entities here and all getters.
+        D.  Primary key is specified with @PrimaryKey.
+        E.  It can have multiple constructors for initializing the various fields.
+        F.  Except the constructor with all fields all other constructors are annotated
+            with @Ignore so Room will ignore it at compile time.
+
+    WebService:
+        A.  This can be implemented through Retrofit/Volley and can provide a Singleton
+            that can be used by repository to make service calls.
+
+    Dependency Injection:
+        A.  We can use DI to inject lower architecture components to upper levels
+            using Dagger2.
+        B.  We can also create a Facade to instantiate and initialize these
+            dependencies(Not recommended).
