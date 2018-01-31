@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="runtime-1.0.0-alpha9">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0-alpha9.aar/9c3371a1efed9667dc5ef3c87d98de63/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0-alpha9.aar/9c3371a1efed9667dc5ef3c87d98de63/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0-alpha9.aar/3e06f6433aad82d35e463cc9efc19545/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0-alpha9.aar/3e06f6433aad82d35e463cc9efc19545/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/android.arch.persistence.room/runtime/1.0.0-alpha9/c3bb7e83a0919ca608fe2f9953ebd41fb28b4251/runtime-1.0.0-alpha9-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/runtime/1.0.0-alpha9/2bb67251bcc617dcfde6aca068caaa53e9aad4b/runtime-1.0.0-alpha9-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

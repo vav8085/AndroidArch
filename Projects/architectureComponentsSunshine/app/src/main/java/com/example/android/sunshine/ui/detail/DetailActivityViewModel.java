@@ -37,7 +37,7 @@ public class DetailActivityViewModel extends ViewModel {
         return mWeather;
     }
 
-    public void setWeather(MutableLiveData<WeatherEntry> weatherEntry) {
-        mWeather = weatherEntry;
+    public void setWeather(WeatherEntry weatherEntry) {
+        mWeather.postValue(weatherEntry);
     }
 }
