@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AndroidArchitectureComponentsBlueprint</string>
+    <string name="url">https://s3.amazonaws.com/vaibhavtestbucket/document.json</string>
+</resources>
