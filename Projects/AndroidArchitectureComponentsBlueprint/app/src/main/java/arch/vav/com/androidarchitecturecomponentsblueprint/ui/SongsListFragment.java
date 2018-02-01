@@ -1,15 +1,18 @@
 package arch.vav.com.androidarchitecturecomponentsblueprint.ui;
 
-import android.app.Fragment;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import arch.vav.com.androidarchitecturecomponentsblueprint.R;
+import arch.vav.com.androidarchitecturecomponentsblueprint.data.entity.SongsData;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -20,7 +23,22 @@ import butterknife.ButterKnife;
 public class SongsListFragment extends Fragment{
     @BindView(R.id.song_detail_recyclerview) RecyclerView recyclerView;
 
+    SongsListViewModel songsListViewModel;
+
     public SongsListFragment(){}
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        songsListViewModel = ViewModelProviders.of(this).get(SongsListViewModel.class);
+        songsListViewModel.init();
+        songsListViewModel.getResult().observe(this, new Observer<SongsData>() {
+            @Override
+            public void onChanged(@Nullable SongsData songsData) {
+
+            }
+        });
+    }
 
     @Override
     public void onAttach(Context context) {

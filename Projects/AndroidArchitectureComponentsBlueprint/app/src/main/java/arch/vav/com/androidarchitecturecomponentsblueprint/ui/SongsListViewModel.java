@@ -16,18 +16,19 @@ import arch.vav.com.androidarchitecturecomponentsblueprint.data.entity.SongsData
  */
 
 public class SongsListViewModel extends ViewModel {
-    @Inject
-    Repository repository;
+    private Repository repository;
 
     LiveData<SongsData> songs;
 
     public SongsListViewModel(){
         SongsApplication.getSongsApplication().getSongsComponent().inject(this);
+        repository = new Repository();
     }
     public void init(){
         if(this.songs!=null){
             return;
         }
+        //ToDo inject this and create a singleton
         songs = repository.getSongsList();
     }
 
