@@ -15,12 +15,12 @@ import butterknife.ButterKnife;
  */
 
 public class SongsListAdapter extends RecyclerView.Adapter<SongsListAdapter.SongsViewHolder> {
-    SongsViewHolder viewHolder;
+    private SongsViewHolder viewHolder;
     @Override
     public SongsListAdapter.SongsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_list_fragment,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_row,parent,false);
         viewHolder = new SongsViewHolder(view);
-        return null;
+        return viewHolder;
     }
 
     @Override
