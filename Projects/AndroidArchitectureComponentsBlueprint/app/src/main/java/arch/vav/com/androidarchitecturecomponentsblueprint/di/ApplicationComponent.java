@@ -3,6 +3,7 @@ package arch.vav.com.androidarchitecturecomponentsblueprint.di;
 import javax.inject.Singleton;
 
 import arch.vav.com.androidarchitecturecomponentsblueprint.ui.MainActivity;
+import arch.vav.com.androidarchitecturecomponentsblueprint.ui.SongsListViewModel;
 import dagger.Component;
 
 /**
@@ -17,5 +18,6 @@ import dagger.Component;
 )
 public interface ApplicationComponent {
     void inject(MainActivity mainActivity);
+    void inject(SongsListViewModel songsListViewModel);
 }
 

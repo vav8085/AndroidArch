@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
  */
 
 public class SongsListFragment extends Fragment{
-    @BindView(R.id.song_detail_recyclerview) private RecyclerView recyclerView;
+    @BindView(R.id.song_detail_recyclerview) RecyclerView recyclerView;
 
     public SongsListFragment(){}
 

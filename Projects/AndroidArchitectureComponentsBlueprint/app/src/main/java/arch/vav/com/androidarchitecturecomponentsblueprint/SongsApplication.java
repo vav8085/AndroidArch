@@ -17,13 +17,13 @@ public class SongsApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        getDealsComponent();
+        getSongsComponent();
     }
-    private static Application getSongsApplication(){
+    public static SongsApplication getSongsApplication(){
         return application;
     }
 
-    public ApplicationComponent getDealsComponent() {
+    public ApplicationComponent getSongsComponent() {
         if(component==null){
             component= DaggerApplicationComponent.builder()
                     .applicationModule(new ApplicationModule(this)).build();

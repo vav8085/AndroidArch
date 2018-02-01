@@ -5,6 +5,7 @@ import android.content.Context;
 import javax.inject.Inject;
 
 import arch.vav.com.androidarchitecturecomponentsblueprint.data.entity.Result;
+import arch.vav.com.androidarchitecturecomponentsblueprint.data.entity.SongsData;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -22,7 +23,7 @@ public class Services {
     private static final String CACHING = "Cache-Control: no-cache";
 
     private static DealsService dealsService=null;
-    public static DealsService getDealsApi() {
+    public static DealsService getSongs() {
         if(dealsService==null){
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(APIPATH)
@@ -36,6 +37,6 @@ public class Services {
     public interface DealsService {
         @Headers(CACHING)
         @GET(API)
-        Call<Result> getDeals();
+        Call<SongsData> getSongs();
     }
 }
