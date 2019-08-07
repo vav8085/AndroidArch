@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Avengers</string>
+    <string name="api">http://www.omdbapi.com/?s=avengers&amp;apikey=a8ac65e5</string>
+</resources>

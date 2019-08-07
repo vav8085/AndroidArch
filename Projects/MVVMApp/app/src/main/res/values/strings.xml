@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SimpleApp</string>
+    <string name="url_store">http://sandbox.bottlerocketapps.com/BR_Android_CodingExam_2015_Server/stores.json</string>
+</resources>
